@@ -11,36 +11,34 @@
 typedef long long ll;
 using namespace std;
 
-char c;
-int usedR[MAXN + 2], usedC[MAXN + 2];
+vector <vector <int> > vi(15);
+int pos[20];
 int main() {
     ios_base::sync_with_stdio(0);
-    ll n, q, t;
-    ll uR = 0, uC = 0, xR = 0, xC = 0;
-    cin >> n >> q;
-
-    ll init = (n + 2) * (n + 1) / 2 - 1;
-    for(int i = 0; i < q; ++i) {
-        cin >> c >> t;
-        if(c == 'R') {
-            if(usedR[t]) {
-                cout << "0" << endl;
-                continue;
-            }
-            cout << t * (n - xR) + (n + 1) * n / 2 - uR << endl;
-            uC += t;
-            xC += 1;
-            usedR[t] = 1;
+    int n, k, sz, t; cin >> n >> k;
+    int sum = 0, ch = 0;
+    for(int i = 0; i < n; ++i) {
+        cin >> sz;
+        for(int j = 0; j < sz; ++j) {
+            cin >> t;
+            vi[i].push_back(t);
         }
-        else {
-            if(usedC[t]) {
-                cout << "0" << endl;
-                continue;
-            }
-            cout << t * (n - xC) + (n + 1) * n / 2 - uC << endl;
-            uR += t;
-            xR += 1;
-            usedC[t] = 1;
-        }
+        pos[i] = 0;
     }
+    int ind = 0;
+    for(int z = 0; z < 1000; ++z) {
+        if(!k) break;
+        int x = (pos[ind] < vi[ind].size() ? vi[ind][pos[ind]++] : 50 );
+
+        if(x >= sum) {
+            sum += x;
+            k -= 1;
+        }
+        ind = (ind + 1) % n;
+
+    }
+
+    cout << sum + k * 50 << endl;
+
+
 }
