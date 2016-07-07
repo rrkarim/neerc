@@ -93,22 +93,14 @@ void dijkstra_right() {
 
 int main() {
     ios_base::sync_with_stdio(0);
-    cin >> n >> w;
+    cin >> w >> n;
     g.push_back({0, 0});
     for(int i = 1; i <= n; ++i) {
         cin >> x >> y;
         g.push_back({x,y});
     }
     dijkstra_left();
-    //dijkstra_right();
+    dijkstra_right();
 
 
-    for(int i = 0; i <= n + 1; ++i) {
-        cout << minimaxl[i] << endl;
-    }
-
-
-    for(int i = 0; i <= n + 1; ++i) {
-        cout << minimaxr[i] << endl;
-    }
 }
