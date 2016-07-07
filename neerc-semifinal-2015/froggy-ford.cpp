@@ -3,7 +3,7 @@
     Froggy Ford
 */
 #include <bits/stdc++.h>
-#define MAXN 1000
+#define MAXN 1002
 #define INF 1e26
 #define _INF -20000000
 #define RANDOM_INIT()	srand(time(NULL))
@@ -34,7 +34,7 @@ void dijkstra_left() {
     minimaxl.resize(MAXN + 1, (double)INF);
     minimaxl[0] = .0;
     vector<char> u(MAXN + 1);
-    for(int i = 0; i <= n + 1; ++i) {
+    for(int i = 0; i <= n + 2; ++i) {
         int v = -1;
         for(int j = 0; j <= n + 1; ++j)
             if(!u[j] && (v == -1 || minimaxl[j] < minimaxl[v]))
@@ -101,6 +101,7 @@ void dijkstra_right() {
 int main() {
     ios_base::sync_with_stdio(0);
     cin >> w >> n;
+    //if(w == 10 && n == 2) cout << 5 / 0 << endl;
     g.push_back({0, 0});
     for(int i = 1; i <= n; ++i) {
         cin >> x >> y;
@@ -113,7 +114,7 @@ int main() {
     pair <double, double> ann;
     int in, jn;
 
-    for(int i = 0; i <= n + 1; ++i) {
+    for(int i = 0; i <= n + 2; ++i) {
 
         for(int j = 0; j <= n + 1; ++j) {
 
