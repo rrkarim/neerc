@@ -140,7 +140,7 @@ int main() {
 
     }
 
-    cout << ans << endl;
+    //cout << ans << endl;
     cout << fixed << setprecision(3) << ann.first << " " << ann.second << endl;
 
 }
