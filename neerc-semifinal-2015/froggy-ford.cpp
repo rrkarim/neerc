@@ -4,7 +4,7 @@
 */
 #include <bits/stdc++.h>
 #define MAXN 1000
-#define INF 20000000000
+#define INF 1e26
 #define _INF -20000000
 #define RANDOM_INIT()	srand(time(NULL))
 #define RANDOM(L, R)	(L + rand() % ((R) - (L) + 1)) // gen a random integer in [L, R]
@@ -24,7 +24,7 @@ double dist(const pi &a, const pi &b) {
 }
 
 pair <double, double> find_point(const int &i, const int &j) {
-    if(i == 0 && j == 0) return {(double) w / 2.0, 1.0 };
+    if(i == 0 && j == n + 1) return {(double) w / 2.0, 1.0 };
     else if(i == 0) return { (double)g[j].first / 2.0 , (double)g[j].second };
     else if(j == n + 1) return { (double)(w + g[i].first) / 2.0, (double)g[i].second };
     else return { (double)(g[i].first + g[j].first) / 2.0, (double)(g[i].second + g[j].second) / 2.0 };
