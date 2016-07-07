@@ -18,16 +18,16 @@ pair<int, int> xm[1005];
 
 int main() {
     ios_base::sync_with_stdio(0);
-    int n; ll k; cin >> n >> k;
-
+    int n; ll k;
+    { cin >> n >> k; }
     int minn = INF, sum = 0, index_to_change = -1;
 
     for(int i = 0; i < n; ++i) {
         memset(used, 0, sizeof used);
-        cin >> x >> a >> b >> c;
-        xm[0].first = x, xm[1].second = 0, used[ x ] = 1;
+        { cin >> x >> a >> b >> c; }
+        xm[0].first = x, xm[0].second = 0, used[ x ] = 1;
         int len = 0;
-        for(len = 1; len < 1000; ++len) {
+        for(len = 1; len <= 1205; ++len) {
             xm[len] = {(xm[len - 1].first * a + b) % c,len};
             if(used[ xm[len].first ]) break;
             used[ xm[len].first ] = 1;
@@ -44,14 +44,16 @@ int main() {
                 break;
             }
         }
-        if( mx - mx2 < minn) {
+        if( mx - mx2 < minn && mx2 != -1) {
             minn = mx - mx2;
             index_to_change = i;
         }
         sum += mx;
         ans.push_back({index, index2});
     }
-    if(sum % k) {
+
+
+    if(sum % k != 0) {
         cout << sum << endl;
         for(int i = 0; i < n; ++i) cout << ans[i].first << " ";
         cout << endl;
