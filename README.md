@@ -1,2 +1,2 @@
-# neerc
-Northeastern European Regional Contest
+# Neerc solutions
+Northeastern European Regional Contest solutions.
