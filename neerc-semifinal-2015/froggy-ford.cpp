@@ -27,7 +27,7 @@ pair <double, double> find_point(const int &i, const int &j) {
     if(i == 0 && j == 0) return {(double) w / 2.0, 1.0 };
     else if(i == 0) return { (double)g[j].first / 2.0 , (double)g[j].second };
     else if(j == n + 1) return { (double)(w + g[i].first) / 2.0, (double)g[i].second };
-    else return { (double)fabs(g[i].first + g[j].first) / 2.0, (double)fabs(g[i].second + g[j].second) / 2.0 };
+    else return { (double)(g[i].first + g[j].first) / 2.0, (double)(g[i].second + g[j].second) / 2.0 };
 }
 
 void dijkstra_left() {
