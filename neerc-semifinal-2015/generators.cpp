@@ -1,5 +1,6 @@
 /**
     Rasul Kerimov (CoderINusE)
+    Generators
 */
 #include <bits/stdc++.h>
 #define MAXN 1000000
