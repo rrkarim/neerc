@@ -57,6 +57,42 @@ ll get_res(ll n) {
     return res;
 }
 
+ void getNeed(long middle) {
+            ll res[MAXN + 2];
+            ll psum[MAXN + 2];
+            for (int i = 0; i < w; ++i) psum[i + 1] = psum[i] + h[i];
+            int stackPos[MAXN + 2];
+            int sp = 0;
+            for (int i = 0; i < w; ++i) {
+                int left = -1;
+                int right = sp;
+                while (right - left > 1) {
+                    int mid = (left + right) / 2;
+                    if (middle - i <= h[stackPos[mid]] - stackPos[mid]) {
+                        left = mid;
+                    } else {
+                        right = mid;
+                    }
+                }
+                if (left >= 0) {
+                    int cnt = i - stackPos[left];
+                    res[i] = (middle + (middle - cnt + 1)) * cnt / 2;
+                    res[i] -= psum[i + 1] - psum[stackPos[left] + 1];
+                } else {
+                    res[i] = INF;
+                }
+                while (sp > 0 && h[i] - i > h[stackPos[sp - 1]] - stackPos[sp - 1]) {
+                    --sp;
+                }
+                stackPos[sp] = i;
+                ++sp;
+            }
+            for(int i = 0; i < w; ++i)
+                cout << res[i] << " ";
+            cout << endl;
+
+        }
+
 int main() {
     ios_base::sync_with_stdio(0);
     cin >> w >> have;
@@ -65,8 +101,8 @@ int main() {
 
     ll lt = 0, rt = 2 * 1e9;
 
-    //cout << get_res(5) << endl;
-    //return 0;
+    cout << getNeed(5) << endl;
+    return 0;
     int k = 0;
     while(lt < rt) {
         ll mid = (lt + rt + 1) / 2;
