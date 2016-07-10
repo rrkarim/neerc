@@ -34,6 +34,7 @@ void get_sum(const ll &m) {
     }
 }
 void get_left(const ll &m) {
+    memset(indexes_update, 0, sizeof indexes_update);
     int index_l = 0, curr_index = 1;
     ll maxn = -1;
     for(int i = 1; i <= w; ++i) {
@@ -55,6 +56,7 @@ void get_left(const ll &m) {
     }
 }
 void get_right(const ll &m) {
+    memset(indexes_update, 0, sizeof indexes_update);
     int index_l = 0, curr_index = 1;
     ll maxn = -1;
     for(int i = 1; i <= w; ++i) {
@@ -78,9 +80,9 @@ void get_right(const ll &m) {
 ll get_res(ll n) {       
     if( maxl < n ) return INF;
     for(int i = 1; i <= w; ++i)     if(h[i] >= n) return 0;
+    
     get_sum(n);
     get_left(n);
-    memset(indexes_update, 0, sizeof indexes_update);
     reverse(h + 1, h + w + 1);
     get_sum(n);
     get_right(n);
@@ -122,7 +124,6 @@ int main() {
     int k = 0;
     while(lt < rt) {
         ll mid = (lt + rt + 1) / 2;
-        ll t = get_res(mid); 
         if(get_res(mid) <= have)
             lt = mid;
         else rt = mid - 1;
