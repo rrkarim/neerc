@@ -96,6 +96,7 @@ ll get_res(ll n) {
 }
 
 int main() {
+    //freopen("in.txt", "r", stdin);
     ios_base::sync_with_stdio(0);
     cin >> w >> have;
     for(int i = 1; i <= w; ++i)
@@ -116,15 +117,17 @@ int main() {
             r -= 1;
         }
     }
+
     maxl = max(lefts, rights);
     int k = 0;
     while(lt < rt) {
         ll mid = (lt + rt + 1) / 2;
+        ll t = get_res(mid); 
         if(get_res(mid) <= have)
             lt = mid;
         else rt = mid - 1;
-        assert(k < 50);
+        assert(k < 60);
         k += 1;
     }
-    cout << lt - (w == tl) << endl;
+    cout << lt << endl;
 }
