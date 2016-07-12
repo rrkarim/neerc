@@ -3,7 +3,7 @@
     King's Inspectation
 */
 #include <bits/stdc++.h>
-#define MAXN 100005
+#define MAXN 120005
 #define INF 2e18
 #define _INF -20000000
 #define RANDOM_INIT()   srand(time(NULL))
@@ -54,9 +54,9 @@ int main() {
     }
     //tourist simple idea
     for(int i = 0; i < n; ++i) {
-        if(g[i].size() != 1) continue;
+        if(g[i].size() == 1) continue;
         int to = g[i][0];
-        for(int j = 0; j < g[to].size(); ++j) {
+        for(int j = 0; j < go[to].size(); ++j) {
             int z = go[to][j];
             if(z != i) {
                 g[z].erase(find(g[z].begin(), g[z].end(), to));
