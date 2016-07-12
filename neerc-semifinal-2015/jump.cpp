@@ -25,6 +25,7 @@ int quer(char st[]) {
     return r;
 }
 int main() {
+    RANDOM_INIT();
     cin >> n;
     while(true) {
         for(int i = 0; i < n; ++i) {
