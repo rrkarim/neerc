@@ -1,6 +1,7 @@
 /**
     Rasul Kerimov (CoderINusE)
     King's Inspectation
+    Not complete (TL 108)
 */
 #include <bits/stdc++.h>
 #define MAXN 120005
@@ -22,13 +23,12 @@ void imp() {
 void dfs(int v, int w) {
     if(w == n) {
         for(int i = 0; i < n; ++i)
-            cout << path[i] + 1 << " ";
-        cout << "1" << endl;
+            printf("%d ", path[i] + 1);;
+        printf("1\n");
         exit(0);
     }
     if (!v && w) return;
     for(int i = 0; i < g[v].size(); ++i) {
-
         int to = g[v][i];
         if(!used[to]) {
             used[to] = 1;
@@ -40,10 +40,10 @@ void dfs(int v, int w) {
 }
 
 int main() {
-    ios_base::sync_with_stdio(0);
-    cin >> n >> m;
+    //ios_base::sync_with_stdio(0);
+    scanf("%d%d", &n, &m);
     for(int i = 0; i < m; ++i) {
-        cin >> u >> v;
+        scanf("%d%d", &u, &v);
         u -= 1; v -= 1;
         g[u].push_back(v);
         go[v].push_back(u);
@@ -52,9 +52,12 @@ int main() {
     for(int i = 0; i < n; ++i) {
         if(g[i].empty() || go[i].empty()) imp();
     }
+
+
+
     //tourist simple idea
     for(int i = 0; i < n; ++i) {
-        if(g[i].size() == 1) continue;
+        if(g[i].size() != 1) continue;
         int to = g[i][0];
         for(int j = 0; j < go[to].size(); ++j) {
             int z = go[to][j];
