@@ -1,6 +1,6 @@
 /**
     Rasul Kerimov (CoderINusE)
-    Burrito King
+    Knockout Racing
 */
 #include <bits/stdc++.h>
 #define MAXN 1000005
@@ -12,7 +12,7 @@
 typedef long long ll;
 using namespace std;
 int n, m;
-int a[MAXN + 2], b[MAXN + 2]
+int a[MAXN + 2], b[MAXN + 2];
 
 int main() {
   int n, m;
@@ -30,7 +30,7 @@ int main() {
 
       int tt = t % (2 * (b[j] - a[j]));
       int xz = tt < b[j] - a[j] ? a[j] + tt : b[j] - (tt - (b[j] - a[j]));
-      if(x <= xz && z <= y) xd += 1;
+      if(x <= xz && xz <= y) xd += 1;
     }
     cout << xd << endl;
   }
