@@ -1,2 +1,1 @@
-# Neerc solutions
-Northeastern European Regional Contest solutions.
+# Neerc & OpenCup solutions 
