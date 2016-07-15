@@ -66,23 +66,21 @@ void add_value(node *leaf, const ll &value) {
     }
 }
 
-void treverse(node *leaf) {
-
+void traverse(node *leaf) {
     if(leaf == NULL) return;
 
     if(leaf->left == NULL && leaf->right == NULL) {
         leaf->length = leaf->width_number;
         return;
     }
-
-    treverse(leaf->left);
-    treverse(leaf->right);
+    traverse(leaf->left);
+    traverse(leaf->right);
 
     leaf->length = (leaf->left == NULL ? 0 : leaf->left->length )
      +(leaf->right == NULL ? 0 : leaf->right->length) + leaf->width_number;
 }
 
-void treverse_begin(node *leaf, int deap) {
+void traverse_begin(node *leaf, int deap) {
     max_deap = max(max_deap, deap);
     if(leaf == NULL) return;
 
@@ -99,20 +97,16 @@ void treverse_begin(node *leaf, int deap) {
     if(leaf->left) d += leaf->left->length;
 
     if(d > maxs_d[deap]) maxs_d[deap] = d;
-
-
-    treverse_begin(leaf->left, deap + 1);
-    treverse_begin(leaf->right, deap + 1);
+    traverse_begin(leaf->left, deap + 1);
+    traverse_begin(leaf->right, deap + 1);
     return;
 }
 
 void print_result(node *leaf, int deap, char **result) {
     if(leaf == NULL) return;
-
     int begin_p = leaf->beginp;
     if(leaf->left) begin_p += leaf->left->length;
     ll value_temp = leaf->value;
-
     int len = 0;
     if(value_temp != 0) {
         while(value_temp) {
@@ -131,23 +125,19 @@ void print_result(node *leaf, int deap, char **result) {
     }
     print_result(leaf->left, deap + 1, result);
     print_result(leaf->right, deap + 1, result);
-
 }
 int main() {
-    //ios_base::sync_with_stdio(0);
     //freopen("input.txt", "r", stdin);
     //freopen("output.txt", "w", stdout);
     ll value = 0, k = 0, z = 0, prev;
-    //memset(result, ' ', sizeof result);
     while(scanf("%lld", &value) == 1) {
         if(k == 0) {
             root = new node;
             root->value = value;
             root->width_number = 0;
             root->left = root->right = NULL;
-            if(value == 0) {
+            if(value == 0)
                 root->width_number = 1;
-            }
             else {
                 while(value) {
                     root->width_number += 1;
@@ -155,16 +145,12 @@ int main() {
                 }
             }
             k |= 1; continue;
-
         }
         add_value(root, value);
-
     }
-
-    treverse(root);
-    treverse_begin(root, 0);
-
-
+    traverse(root);
+    traverse_begin(root, 0);
+    
     char **result = new char*[max_deap + 1];
     for(int i = 0; i < max_deap + 1; ++i) {
         result[i] = new char[maxs_d[i] + 1];
@@ -174,13 +160,10 @@ int main() {
 
     print_result(root, 0, result);
 
-
     for(int j = 0; j < max_deap; ++j) {
-        for(int i = 0; i < maxs_d[j]; ++i) {
+        for(int i = 0; i < maxs_d[j]; ++i)
             printf("%c", result[j][i]);
-        }
         putchar('\n');
     }
-
 
 }
