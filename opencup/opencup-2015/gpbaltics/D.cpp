@@ -111,7 +111,6 @@ int main() {
         }
 
         M[sample_triangle].push_back(i + 1);
-
     }
 
     printf("%d\n", res.size() + n - used_size);
