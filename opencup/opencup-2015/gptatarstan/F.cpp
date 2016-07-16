@@ -45,7 +45,7 @@ int main() {
     cin >> k >> d >> m;
     get_v(a, d, last_a); get_v(b, m, last_b);
 
-    for(int i = 2; i <= 5 + 1; ++i) {
+    for(int i = 2; i <= MAXN + 1; ++i) {
         if(b[i] > a[i]) {
             ans = (ans * func(a[i], b[i])) % mod;
         }
@@ -56,7 +56,11 @@ int main() {
         }
     }
 
-    if(last_a && !last_b) ans *= 0;
+    //assert(!last_a);
+    //assert(!last_b);
+
+    if(last_a && !last_b)
+        ans *= 0;
     else if(last_b && !last_a) {
         ans = (ans * func(0, b[last])) % mod;
     }

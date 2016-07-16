@@ -42,30 +42,5 @@ ll func(const ll& a, const ll& b) {
 }
 
 int main() {
-    cin >> k >> d >> m;
-    get_v(a, d, last_a); get_v(b, m, last_b);
-
-    for(int i = 2; i <= 5 + 1; ++i) {
-        if(b[i] > a[i]) {
-            ans = (ans * func(a[i], b[i])) % mod;
-        }
-        else if(b[i] == a[i]) continue;
-        else {
-            ans *= 0;
-            break;
-        }
-    }
-
-    if(last_a && !last_b) ans *= 0;
-    else if(last_b && !last_a) {
-        ans = (ans * func(0, b[last])) % mod;
-    }
-    else if(last_a && last_b) {
-        if(b[last] > a[last]) {
-            ans = (ans * func(a[last], b[last])) % mod;
-        }
-        else if(b[last] < a[last]) ans *= 0;
-    }
-
-    cout << ans << endl;
+    
 }
