@@ -11,36 +11,31 @@
 typedef long long ll;
 using namespace std;
 
-const ll mod = 1e9 + 9;
+const ll mod = 1e9 + 9ll;
+double ans = 1.0;
 
-ll k, d, m, last_a, last_b, ans = 1;
-vector <int> a(MAXN + 2), b(MAXN + 2);
-int last = 100003;
+string s1, s2, t[15];
 
-void get_v(vector<int>& d, ll n, ll& last_value) {
-    for(int i = 2; i <= (int)sqrt(n); ++i) {
-        while(n % i == 0) {
-            d[i] += 1;
-            n /= i;
-        }
-    }
-    if(n) d[(n > MAXN ? last : n)] = 1;
-    if(n > MAXN) last_value = n;
-}
-
-ll binpow(ll n, ll k) {
-    if(!k) return 1;
-    if(k % 2) return binpow(n, k - 1) * n % mod;
-    else {
-        ll res = binpow(n, k / 2);
-        return res * res % mod;
-    }
-}
-
-ll func(const ll& a, const ll& b) {
-    return ( binpow(b - a + 1, k) - 2ll * binpow(b - a, k) + binpow(b - a - 1, k) ) % mod;
+int check(string s, char c) {
+    int res = 0;
+    if(s[0] == c || s[1] == c || s[3] == c || s[5] == c) res += 1;
+    if(s[1] == c || s[2] == c || s[3] == c || s[4] == c) res += 1;
+    return res;
 }
 
 int main() {
-    
+    cin >> s1 >> s2;
+    for(int i = 0; i < s1.length(); ++i) {
+        cin >> t[i];
+    }
+    for(int i = 0; i < s1.length(); ++i) {
+        if(s1[i] != s2[i]) {
+
+            int c = check(t[i], s2[i]);
+            if(c == 1) ans /= 2.0;
+            else if(c == 0) ans = 0.0;
+
+        }
+    }
+    cout << ans << endl;
 }

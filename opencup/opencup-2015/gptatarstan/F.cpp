@@ -30,7 +30,7 @@ void get_v(vector<int>& d, ll n, ll& last_value) {
 
 ll binpow(int n, ll k) {
     if(k == 0) return 1ll;
-    if(k % 2) return (binpow(n, k - 1) * n % mod) % mod;
+    if(k % 2) return (binpow(n, k - 1) * n) % mod;
     else {
         ll res = binpow(n, k / 2) % mod;
         return (res * res) % mod;
@@ -45,7 +45,7 @@ ll mod_(const ll& a) {
 ll func(const int& a, const int& b) {
     assert(b > a);
     ll p1 = binpow(b - a + 1, k) % mod;
-    ll p2 = (2ll * binpow(b - a, k) % mod ) % mod;
+    ll p2 = 2ll * binpow(b - a, k) % mod;
     ll p3 = binpow(b - a - 1, k) % mod;
     return mod_((p1 + p3) % mod - p2);
 }
