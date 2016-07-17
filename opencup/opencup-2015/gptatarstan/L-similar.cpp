@@ -8,8 +8,8 @@
 
 typedef long long ll;
 using namespace std;
-int n,m,t[N],d[N],tot,tmp;
-LL ans;
+int n, m, t[MAXN + 2], d[MAXN + 2], tot, tmp;
+ll ans;
 int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 void calc(int x) {
 	int i;
