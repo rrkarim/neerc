@@ -37,5 +37,5 @@ int main() {
 
         }
     }
-    cout << ans << endl;
+    cout << fixed << setprecision(6) << ans << endl;
 }
