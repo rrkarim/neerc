@@ -1,3 +1,6 @@
+/**
+    Rasul Kerimov (CoderINusE)
+*/
 #include <bits/stdc++.h>
 #define MAXN 100005
 #define INF 2e18
@@ -43,7 +46,6 @@ int main() {
             for(int j = 0; j < vi.size(); ++j) {
                 string x = str(t, vi[j]);
                 int c = check(x, s2[i]);
-
                 if(c == 2)
                     p += 1.0 / (double) vi.size();
                 else if(c == 1)
