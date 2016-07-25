@@ -2,6 +2,7 @@
     Rasul Kerimov (CoderINusE)
     QUE2 - Queue (Pro)
     O(n*log^2(n))
+    Segment tree, Binary search
 */
 #include <bits/stdc++.h>
 #define MAXN 10005
