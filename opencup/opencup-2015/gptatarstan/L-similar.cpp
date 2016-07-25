@@ -1,5 +1,6 @@
 /**
     Rasul Kerimov (CoderINusE)
+    Codeforces 271E
 */
 #include <bits/stdc++.h>
 #define MAXN 100005
