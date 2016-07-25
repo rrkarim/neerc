@@ -15,10 +15,11 @@ struct node {
     node(int val, int num) {
         this->val = val;
         this->num = num;
+        this->left = NULL;
+        this->right = NULL;
     }
 };
-
-inline void insert(node *n, p a) {
+inline void insert(node *& n, p a) {
     if(n == NULL) {
         n = new node(1, a.first);
         return;
@@ -32,11 +33,10 @@ inline void insert(node *n, p a) {
         insert(n->right, {a.first, tmp});
     }
 }
-
 void traverse(node* n) {
     if(n == NULL) return;
     traverse(n->left);
-    printf("%d", n->num);
+    printf("%d ", n->num);
     traverse(n->right);
 }
 
@@ -48,10 +48,10 @@ int main() {
         for(int i = 0; i < n; ++i) scanf("%d", &a[i].second);
         sort(a, a + n, ::greater<pair<int,int>>());
         node* root = NULL;
+        //cout << root << endl;
         for(int i = 0; i < n; ++i)
             insert(root, a[i]);
         traverse(root);
         printf("\n");
-
     }
 }
