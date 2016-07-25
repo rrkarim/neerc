@@ -1,3 +1,8 @@
+/**
+    Rasul Kerimov (CoderINusE)
+    QUE2 - Queue (Pro)
+    O(n*log^2(n))
+*/
 #include <bits/stdc++.h>
 #define MAXN 10005
 using namespace std;
