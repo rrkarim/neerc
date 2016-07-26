@@ -7,10 +7,3 @@
 
 [NEERC 2015](/neerc-semifinal-2015)
 
-
-```
-/**
-  Rasul Kerimov (CoderINusE)
-  C++
-*/
-```
