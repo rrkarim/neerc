@@ -6,3 +6,11 @@
 [NEERC 2014](/neerc-semifinal-2014)
 
 [NEERC 2015](/neerc-semifinal-2015)
+
+
+```
+/**
+  Rasul Kerimov (CoderINusE)
+  C++
+*/
+```
