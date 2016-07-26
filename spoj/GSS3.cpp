@@ -1,7 +1,7 @@
 /**
     Rasul Kerimov (CoderINusE)
     GSS3 - Can you answer these queries III
-    Segmented tree
+    Segment tree
 */
 #include <bits/stdc++.h>
 #define MAXN 50005
