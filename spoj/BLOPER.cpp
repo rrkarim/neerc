@@ -4,10 +4,10 @@
 using namespace std;
 
 typedef long long ll;
-int n, m, a[505];
+ll n, m, a[505];
 int main() {
     //freopen("a.txt", "w", stdout);
-    scanf("%d%d", &n, &m);
+    scanf("%lld%lld", &n, &m);
     ll sum = (n + 1) * n / 2;
     ll s = sum - m;
     if(s % 2 != 0) {
@@ -21,10 +21,14 @@ int main() {
             s -= i;
         }
     }
-    for(int i = 1; i <= n; ++i) {
+    if(s != 0) {
+        printf("Impossible\n");
+        return 0;
+    }
+    for(ll i = 1; i <= n; ++i) {
         if(a[i] == 1) printf("-");
         else if(i != 1) printf("+");
-        printf("%d", (i));
+        printf("%lld", (i));
     }
     printf("\n");
 }
