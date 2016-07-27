@@ -1,7 +1,7 @@
 /**
     Rasul Kerimov (CoderINusE)
     QUE2 - Queue (Pro)
-    ~~O(n*logn)
+    O(n*logn)
 */
 #include <bits/stdc++.h>
 #define MAXN 10005
