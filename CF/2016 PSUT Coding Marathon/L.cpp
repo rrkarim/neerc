@@ -21,7 +21,6 @@ int solve() {
     }
     if(res == MAXN) return -1;
     return res;
-
 }
 
 int main() {
