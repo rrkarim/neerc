@@ -14,12 +14,9 @@ int main() {
     dp[0] = 0;
     for(int i = 1; i < n; i ++) {
         dp[i] = 2222222;
-        if(s[i] == '.')
-        {
-            for(int j = 0; j < i; j ++)
-            {
-                if(s[j] == '.')
-                {
+        if(s[i] == '.') {
+            for(int j = 0; j < i; j ++) {
+                if(s[j] == '.') {
                     if(i - j - 1 <= m)
                     dp[i] = min(dp[i] , dp[j] + 1);
                 }
