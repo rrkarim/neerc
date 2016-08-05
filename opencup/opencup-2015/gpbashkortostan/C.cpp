@@ -13,7 +13,6 @@ int main() {
             for(int j = 1; j <= n / i; ++j) {
                 ll sum = 0, x = i;
                 if(j == 1) res += 1;
-                
                 else {
                     while(sum < n) {
                         sum += x;
