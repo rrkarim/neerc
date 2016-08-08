@@ -1,137 +1,78 @@
-#include <bits/stdc++.h>
-#define MAX_CHAR 256
-/**
-    #126 - Word Ladder II
-*/
-#define MAXN 100005
-using namespace std;
+class Solution {
+public:
+    unordered_set<string>::iterator it;
+    unordered_map <int, string> mp;
+    unordered_map <string, int> us;
+    vector <int> d, p;
+    vector <vector <int>> g;
+    set <string>::iterator it1;
 
-typedef long long ll;
-unordered_set<string>::iterator it;
-unordered_map <int, string> mp;
-vector <int> d, p;
-vector <vector <int>> g;
+    struct node {
+        int value;
+        int step;
+        string word;
+        node* next;
+        node(string s, int step, node *next) : word(s), step(step), next(next) {}
+        node() {}
+    };
 
-bool check(string a, string b) {
-    int c = 0;
-    for(int i = 0; i < a.size(); ++i) {
-        if(a[i] != b[i]) c += 1;
-    }
-    return (c <= 1);
-}
+    int zs = 0;
 
-void __traverse(vector<string>& v, int n) {
-    if(n == -1) return;
-    v.push_back(mp[n]);
-    __traverse(v, p[n]);
-}
+    vector<vector<string>> findLadders(string beginWord, string endWord, unordered_set<string> &wordList) {
+        vector<vector<string>> ret;
+        queue <node*> q;
+        q.push(new node(beginWord, 1, NULL));
+        wordList.insert(endWord);
+        set <string> vis, unvis;
 
-vector <vector <string>> bfs(int s, int n) {
+        for(it = wordList.begin(); it != wordList.end(); ++it)
+            unvis.insert(*it);
+        unvis.erase(beginWord);
 
-    vector<vector<string>> ret;
+        int preNumSteps = 0, minn = 0;
 
-    queue <int> q; q.push(s);
-    vector <bool> used(n);
-    d.resize(n + 1), p.resize(n + 1);
-    used[s] = 1;
-    p[s] = -1;
-    d[s] = 0;
+        while(!q.empty()) {
+            node* top = q.front();
+            q.pop();
+            string w = top->word;
+            int curr = top->step;
+            //cout << w << endl;
+            if(w == endWord) {
+                if(minn == 0) minn = top->step;
 
-    while(!q.empty()) {
-        int v = q.front();
-        q.pop();
-        used[v] = 2;
-        //  cout << v << endl;
-        for(int i = 0; i < g[v].size(); ++i) {
-            int to = g[v][i];
-            if(used[to] != 2 && to != p[v]) {
-
-                if(used[to] == 0) {
-                    used[to] = 1;
-                    q.push(to);
-                    d[to] = d[v] + 1;
-                    p[to] = v;
-
-                    if(to == n - 1) {
-                        vector <string> d; __traverse(d, to);
-                        reverse(d.begin(), d.end());
-                        ret.push_back(d);
+                if(top->step == minn && minn != 0) {
+                    vector <string> t;
+                    while(top != NULL) {
+                        t.push_back(top->word);
+                        top = top->next;
                     }
-
+                    reverse(t.begin(),t.end());
+                    ret.push_back(t);
+                    continue;
                 }
-                else {
-                    if(d[v] + 1 == d[to]) {
-                        q.push(to);
-                        p[to] = v;
-                        if(to == n - 1) {
-                            vector <string> d; __traverse(d, to);
-                            reverse(d.begin(), d.end());
-                            ret.push_back(d);
-                        }
-                    }
-                    else if(d[v] + 1 < d[to]) {
-                        q.push(to);
-                        p[to] = v;
-
-                        if(to == n - 1) {
-                            ret.clear();
-                            vector <string> d; __traverse(d, to);
-                            reverse(d.begin(), d.end());
-                            ret.push_back(d);
-                        }
-                    }
-                }
-
             }
-        }
 
-    }
+            if(preNumSteps < curr) {
+                for(it1 = vis.begin(); it1 != vis.end(); ++it1) {
+                    unvis.erase(*it1);
+                }
+            }
+            preNumSteps = curr;
+            for(int i = 0; i < w.size(); ++i) {
 
-    return ret;
+                for(char c = 'a'; c <= 'z'; ++c) {
 
-}
-
-vector<vector<string>> findLadders(string beginWord, string endWord, unordered_set<string> &wordList) {
-        int len = 0;
-        mp[len++] = beginWord;
-
-        for(it = wordList.begin(); it != wordList.end(); ++it) {
-            //cout << *it << endl;
-            mp[len++] = *it;
-        }
-        mp[len++] = endWord;
-        g.resize(len + 1);
-
-        for(int i = 0; i < len; ++i) {
-            for(int j = i + 1; j < len; ++j) {
-                if(check(mp[i], mp[j])) {
-                    g[i].push_back(j);
-                    g[j].push_back(i);
+                    char temp = w[i];
+                    if(w[i] != c) w[i] = c;
+                    if(unvis.count(w)) {
+                        q.push(new node(w, top->step + 1, top));
+                        vis.insert(w);
+                    }
+                    w[i] = temp;
                 }
             }
         }
 
-        vector<vector<string>> ret = bfs(0, len);
         return ret;
-}
-
-
-int main() {
-    string a = "hit";
-    string b = "cog";
-    unordered_set <string> st;
-
-    st.insert("hot");
-    st.insert("dot");
-    st.insert("dog");
-    st.insert("lot");
-    st.insert("lot");
-    st.insert("log");
-
-    vector<vector<string>> res = findLadders(a, b, st);
-
-    for(int i = 0; i < res.size(); ++i) {
-        for(int j = 0; j < res[i].size(); ++j) cout << res[i][j] << " ";
-        cout << endl;
     }
-}
+};
