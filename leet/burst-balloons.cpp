@@ -2,6 +2,8 @@
     DP solution
     O(n^3)
     Iterate through all substring starting from 2.
+    Reverse DP technique.
+    Choose index that stays till the end.
 */
 int maxCoins(vector<int>& nums) {
     int numsi[nums.size() + 2];
