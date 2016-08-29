@@ -1,6 +1,6 @@
 /**
     Toplogical-sort solution
-    O(n^2)
+    O(n^2*m^2)
 */
 class Solution {
 public:
@@ -64,3 +64,39 @@ vector <pair<int,int>> ans;
         return res;
     }
 };
+
+/*
+    Memoization method
+    O(n*m)
+*/
+
+    int dx[5] = { 1 , -1, 0 , 0  };
+    int dy[5] = { 0 , 0 , 1 , -1 };
+
+    int dfs(int x, int y, int m, int n, vector<vector<int>>& matrix, vector<vector<int>>& dis) {
+        if (dis[x][y] != 0) return dis[x][y];
+
+        for (int i = 0; i < 4; i++) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if (nx >= 0 && ny >= 0 && nx < m && ny < n && matrix[nx][ny] > matrix[x][y]) {
+                dis[x][y] = max(dis[x][y], dfs(nx, ny, m, n, matrix, dis));
+            }
+        }
+        return ++dis[x][y];
+    }
+
+    int longestIncreasingPath(vector<vector<int>>& matrix) {
+        if (matrix.size() == 0) return 0;
+        int m = matrix.size(), n = matrix[0].size();
+        vector <vector <int>> dis;
+        dis.resize(m + 1);
+        for(int i = 0; i < dis.size(); ++i) dis[i].resize(n + 1);
+        int ans = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                ans = max(ans, dfs( i, j, m, n, matrix, dis));
+            }
+        }
+        return ans;
+    }
