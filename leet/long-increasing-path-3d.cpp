@@ -1,5 +1,5 @@
 /**
-    Toplogical-sort solution
+    Topological-sort solution
     O(n^2*m^2)
 */
 class Solution {
