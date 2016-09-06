@@ -19,23 +19,17 @@ class Solution {
 public:
     int len = 0;
     vector <int> vi;
-    
     void add(int l, int r, TreeNode*& node) {
-        
         if(l > r) return;
-        
         if(l == r) {
             node = new TreeNode(vi[l]);
             return;
-        }
-        
+        }      
         int m = (l + r) / 2;
         node = new TreeNode(vi[m]);
         add(l, m - 1, node->left);
-        add(m + 1, r, node->right);
-        
+        add(m + 1, r, node->right);   
     }
-    
     TreeNode* sortedListToBST(ListNode* head) {
         if(head == NULL) return NULL;
         ListNode* curr = head;
