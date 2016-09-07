@@ -1,5 +1,6 @@
 # Neerc & OpenCup solutions
 
+
 [SPOJ solutions](spoj/)
 
 [Open Cup solutions](opencup/)
