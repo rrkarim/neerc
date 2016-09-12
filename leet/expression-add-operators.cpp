@@ -1,6 +1,38 @@
 /*
     Expression Add Operators
 */
+
+class Solution {
+public:
+    vector <string> res;
+    void f(int index, string st, long temp, const long &target, const string &num, long pre, char pre_c) {
+        if(index == num.size() && temp == target) {
+            res.push_back(st);
+        }
+        else {
+            for(int i = index + 1; i <= num.size(); ++i) {
+                string t = num.substr(index, i - index);
+                long x = stol(t);
+                if(to_string(x).size() != t.size()) continue;
+                f(i, st+"+"+t, temp+x, target, num, x, '+');
+                f(i, st+"-"+t, temp-x, target, num, x, '-');
+                f(i, st+"*"+t, (pre_c == '+' ? temp-pre + pre*x : ((pre_c=='-'?temp+pre-pre*x:pre*x))), target, num, pre*x, pre_c);
+            }
+        }
+    }
+    vector<string> addOperators(string num, int target) {
+        if(num.size() == 0) return res;
+        string temp; temp += num[0];
+        for(int i = 1; i <= num.size(); ++i) {
+            string s = num.substr(0, i);
+            long cur = stol(s);
+            if (to_string(cur).size() != s.size()) continue;
+            f(i, s, cur, target, num, cur, '#');
+        }
+        return res;
+    }
+};
+
 class Solution {
 public:
     vector <string> res;
