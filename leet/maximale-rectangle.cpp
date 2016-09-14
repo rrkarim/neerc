@@ -2,7 +2,7 @@
     Maximal Rectangle leetcode
     O(n^5) - DP
 */
-class Solution {
+class Solution{
 public:
     int maximalRectangle(vector<vector<char>>& matrix) {
         if(matrix.size() == 0) return 0;
