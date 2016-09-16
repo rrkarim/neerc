@@ -53,18 +53,19 @@ public:
         }
         
         //balance
-        
-        if(abs(heap_max.size() - heap_min.size()) > 1) {
+        int s = heap_max.size();
+        int x = heap_min.size();
+        if(abs(s-x) > 1) {
             if(heap_max.size() > heap_min.size()) {
                 insert_min(heap_max[0]);
                 swap(heap_max[0], heap_max[heap_max.size()-1]);
                 heap_max.pop_back();
-                int index = 0;
+                int i = 0;
                 while(true) {
-                    int left = it*2 + 1, right = i*2 + 2;
+                    int left = i*2 + 1, right = i*2 + 2;
                     int maxn = heap_max[i], index = -1;
-                    if(left < heap_max.size()) maxn = max(maxn, heap_max[left]), index = left;
-                    if(right < heap_max.size()) maxn = max(maxn, heap_max[right]), index = right;
+                    if(left < heap_max.size() && heap_max[left] > maxn) maxn = heap_max[left], index = left;
+                    if(right < heap_max.size() && heap_max[right] > maxn) maxn = heap_max[right], index = right;
                     if(maxn == heap_max[i]) break;
                     swap(heap_max[index], heap_max[i]);
                     i = index;
@@ -74,13 +75,13 @@ public:
                 insert_max(heap_min[0]);
                 swap(heap_min[0], heap_min[heap_min.size()-1]);
                 heap_min.pop_back();
-                int index = 0;
+                int i = 0;
                 while(true) {
-                    int left = it*2 + 1, right = i*2 + 2;
+                    int left = i*2 + 1, right = i*2 + 2;
                     int minn = heap_min[i], index = -1;
-                    if(left < heap_max.size()) minn = min(minn, heap_min[left]), index = left;
-                    if(right < heap_max.size()) minn = min(minn, heap_min[right]), index = right;
-                    if(maxn == heap_min[i]) break;
+                    if(left < heap_min.size() && heap_min[left] < minn) minn = heap_min[left], index = left;
+                    if(right < heap_min.size() && heap_min[right] < minn) minn = heap_min[right], index = right;
+                    if(minn == heap_min[i]) break;
                     swap(heap_min[index], heap_min[i]);
                     i = index;
                 }
