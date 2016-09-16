@@ -1,5 +1,5 @@
 /**
-    Count of Range Sum
+    Count of Range sum
     Divide and Conquear solution
     O(nlognlogn)
 */

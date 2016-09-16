@@ -100,3 +100,10 @@ vector <pair<int,int>> ans;
         }
         return ans;
     }
+
+
+
+1 3
+2 0
+2 2 2
+2 4

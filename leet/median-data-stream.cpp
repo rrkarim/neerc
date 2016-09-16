@@ -1,3 +1,6 @@
+/*
+    Find Median from Data Stream
+*/
 class MedianFinder {
 public:
     vector<int> heap_min, heap_max;
@@ -29,30 +32,20 @@ public:
     }
     void addNum(int num) {
         if(heap_min.size() + heap_max.size() < 2) {
-            if(heap_min.size() + heap_max.size() == 0) {
-                heap_min.push_back(num);
-            }
+            if(heap_min.size() + heap_max.size() == 0) heap_min.push_back(num);
             else {
                 if(num > pre) {
                     heap_min.pop_back();
                     heap_min.push_back(num);
                     heap_max.push_back(pre);
                 }
-                else {
-                    heap_max.push_back(num);
-                }
+                else heap_max.push_back(num);
             }
         }
         else {
-            if(num < heap_max[0]) {
-                insert_max(num);
-            }
-            else {
-                insert_min(num);
-            }
+            if(num < heap_max[0]) insert_max(num);
+            else insert_min(num);
         }
-        
-        //balance
         int s = heap_max.size();
         int x = heap_min.size();
         if(abs(s-x) > 1) {
@@ -86,11 +79,9 @@ public:
                     i = index;
                 }
             }
-        }
-        
+        }   
         pre = num;
     }
-
     // Returns the median of current data stream
     double findMedian() {
         if(heap_min.size() == heap_max.size()) return (double)(heap_min[0]+heap_max[0])/2.0;
@@ -99,7 +90,6 @@ public:
         }
     }
 };
-
 // Your MedianFinder object will be instantiated and called as such:
 // MedianFinder mf;
 // mf.addNum(1);

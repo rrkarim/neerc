@@ -8,7 +8,7 @@ public:
             if(d[i]) continue;
             int j, c = 0;
             for(j = i - 1; j >= 0; --j) {
-                if(height[j] > height[i]) {c = 1; break; }
+                  if(height[j] > height[i]) {c = 1; break; }
             }
             int m = height[i];
             if(c == 1) {

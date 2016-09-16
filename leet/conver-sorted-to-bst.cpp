@@ -11,7 +11,7 @@
  * struct TreeNode {
  *     int val;
  *     TreeNode *left;
- *     TreeNode *right;
+ *     TreeNoed *right;
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
