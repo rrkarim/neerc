@@ -13,7 +13,7 @@ public:
                     number = "";
                     if(!st_c.empty() && st_c.top() != '(') {
                         if(st_c.top() == '+')
-                          	st.top() += temp;
+                            st.top() += temp;
                         else if(st_c.top() == '-')
                             st.top() -= temp;
                         st_c.pop();
@@ -48,7 +48,7 @@ public:
                     number = "";
                     if(!st_c.empty() && st_c.top() != '(') {
                         if(st_c.top() == '+') 
-                            st.top() += temp
+                            st.top() += temp;
                         else if(st_c.top() == '-')
                             st.top() -= temp;
                         st_c.pop();
