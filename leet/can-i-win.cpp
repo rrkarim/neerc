@@ -24,7 +24,6 @@ public:
     bool canIWin(int maxChoosableInteger, int desiredTotal) {
         if(maxChoosableInteger*(maxChoosableInteger+1) / 2 < desiredTotal) return false;
         if(desiredTotal == 0) return 1;
-        int mask = (1 << maxChoosableInteger) - 1;
         for(int i = 0; i < mx; ++i) mp[i] = -1;
         int c = f(desiredTotal, 0, maxChoosableInteger);
         return (c == 1 ? 1 : 0);
