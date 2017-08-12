@@ -5,9 +5,9 @@
 #define MAXN 200004
 
 using namespace std;
-
-#define F first
-#define S second
+#define fir first
+#define sec second
+#define pb push_back
 #define MP make_pair
 #define all(x) (x).begin(), (x).end()
 
@@ -39,6 +39,7 @@ public:
         t[v].mem = min(t[v*2].mem + t[v*2].add, t[v*2+1].mem + t[v*2+1].add);
     }
     void push(int v) {
+        //cout << v << endl;
         t[v*2].add += t[v].add;
 		t[v*2+1].add += t[v].add;
 		t[v].mem += t[v].add;
@@ -46,6 +47,7 @@ public:
     }
     void add(int v, const int& tl, const int& tr, const int& l,
              const int& r, const ll& c) {
+        //cout << v << " " << l << " " << r << " " << tl << " " << tr << endl;
         if(l <= tl && r >= tr) {
             t[v].add += c;
             return;
@@ -68,92 +70,57 @@ public:
     }
 };
 
-int n, q, a, b, c, in[MAXN + 2], out[MAXN + 2], pre[MAXN + 2];
-pair<int, int> pl[MAXN + 2];
-vector <vector <pair<int, int>>> g;
-vector <int> gaus_array, f;
-pair <int, int> vals[MAXN + 2];
-
-pair <int, int> mp[MAXN + 2];
-
 int len;
-Seg* seg;
+Seg* S;
+vector<pair<int,ll>> e[MAXN];
+int n, q;
+ll f[MAXN];
+int be[MAXN], en[MAXN];
+int tot;
+int a[MAXN*2], b[MAXN*2], c[MAXN*2];
 
-void dfs(int v) {
-    gaus_array.push_back(v);
-    in[v] = gaus_array.size();
-    for(int i = 0; i < g[v].size(); ++i) dfs(g[v][i].first);
-    gaus_array.push_back(v);
-    out[v] = gaus_array.size();
+void dfs(int x, ll l) {
+	tot++; be[x]=tot;
+	S->add(1,1,n,tot,tot,l+f[x]);
+	for (auto p : e[x])
+		dfs(p.fir, l+p.sec);
+	en[x] = tot;
 }
 
-void init(int v, ll sum) {
-    pre[v] = sum;
-    seg->add(1, 1, len, in[v], out[v], sum + f[v] - seg->query(1, 1, len, in[v], in[v]));
-    for(int i = 0; i < g[v].size(); ++i)
-        init(g[v][i].first, sum + g[v][i].second);
+ll path(int x) {
+	return S->query(1,1,n,be[x],be[x])-f[x];
 }
 
 int main() {
-    seg = new Seg();
-
-    scanf("%d%d", &n, &q);
-
-    g.resize(n + 1), f.resize(n + 1);
-
-    for(int i = 0; i < n - 1; ++i) {
-        scanf("%d%d%d", &a, &b, &c);
-        g[a].push_back({b, c});
-        pl[b] = {a, c};
-        mp[i + 1] = {a, b};
-        vals[i + 1] = {a, c};
-    }
-
-    for(int i = 0; i < n - 1; ++i) {
-        scanf("%d%d%d", &a, &b, &c);
-        f[a] = c;
-        mp[i + n] = {a, 1};
-        vals[i + 1] = {a, c};
-    }
-    dfs(1);
-    len = gaus_array.size();
-    init(1, 0);
-    for(int i : gaus_array) cout << i << " "; cout << endl;
-
-    for(int i = 0; i < q; ++i) {
-        scanf("%d%d%d", &a, &b, &c);
-        if(a == 1) {
-            if(b < n) {
-                pl[mp[b].second].second = c;
-                seg->add(1, 1, len, in[vals[b].first]+1, out[vals[b].first]-1, c - vals[b].second);
-                vals[b].second = c;
-            }
-            else {
-                seg->add(1, 1, len, in[vals[b].first], in[vals[b].second], c - vals[b].second);
-                seg->add(1, 1, len, in[vals[b].first], out[vals[b].second], c - vals[b].second);
-                vals[b].second = c;
-            }
-        }
-        else {
-            ll ans = min( seg->query(1, 1, len, in[b], out[b]) - pre[b] + pre[c], seg->query(1, 1, len, in[c], out[c]) - pre[c] + pre[b] );
-            if(in[b] < in[c] && out[b] > out[c]) {
-                ll sum = 0;
-                while(c != b) {
-                    sum += pl[c].second;
-                    c = pl[c].first;
-                }
-                ans = min(sum, ans);
-            }
-            if(in[c] < in[b] && out[c] > out[b]) {
-                ll sum = 0;
-                while(b != c) {
-                    sum += pl[b].second;
-                    b = pl[b].first;
-                }
-                ans = min(sum, ans);
-            }
-
-            printf("%I64d\n", ans);
-        }
-    }
+	S = new Seg();
+	scanf( "%d%d", &n, &q );
+	for (int i = 1; i <= n-1; ++i) {
+		scanf( "%d%d%d", &a[i], &b[i], &c[i] );
+		e[a[i]].pb({b[i],c[i]});
+	}
+	for (int i = n; i <= 2*n-2; ++i) {
+		scanf( "%d%d%d", &a[i], &b[i], &c[i] );
+		f[a[i]] = c[i];
+	}
+	tot = 0;
+	dfs(1, 0);
+	for (int i = 1; i <= q; ++i) {
+		int op, x, y;
+		scanf( "%d%d%d", &op, &x, &y );
+		if (op == 1) {
+			if (x <= n-1)
+				S->add(1,1,n,be[b[x]],en[b[x]],y-c[x]);
+			else {
+				S->add(1,1,n,be[a[x]],be[a[x]],y-c[x]);
+				f[a[x]] = y;
+			}
+			c[x] = y;
+		}
+		else {
+			ll px = path(x), py = path(y);
+			if (be[y] >= be[x] && en[y] <= en[x])
+				printf( "%I64d\n", py-px );
+			else printf( "%I64d\n", S->query(1,1,n,be[x],en[x])-px+py );
+		}
+	}
 }
