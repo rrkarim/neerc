@@ -1,5 +1,5 @@
 /*
-    Eternal vigilance is the price of liberalizm
+    Eternal vigilance is the price of liberty
 */
 #include <bits/stdc++.h>
 #include <math.h>
@@ -75,6 +75,3 @@ int main() {
 
     return 0;
 }
-
-
-
