@@ -18,7 +18,7 @@ typedef pair<ll, ll> pi ;
 
 const ll mod = 1e9 + 7ll;
 //
-const int size_ = 2;
+const int size_ = 20;
 struct node {
     int is_leaf, size_, in_;
     node *left_, *right_;
@@ -34,7 +34,8 @@ vector <int> convert_to_bin(int n) {
         vi.push_back(n & 1);
         n /= 2;
     }
-    vi.resize(size_, 0); reverse(vi.begin(), vi.end());
+    vi.resize(size_, 0);
+    reverse(vi.begin(), vi.end());
     return vi;
 }
 
@@ -59,12 +60,10 @@ public:
         }
 
         if(vi[index]) {
-            if(curr->right_ == NULL)
-                curr->right_ = new node();
+            if(curr->right_ == NULL) curr->right_ = new node();
             add_(curr->right_, vi, index+1);
         } else {
-            if(curr->left_ == NULL)
-                curr->left_ = new node();
+            if(curr->left_ == NULL) curr->left_ = new node();
             add_(curr->left_, vi, index+1);
         }
     }
@@ -75,57 +74,39 @@ public:
         get_(root, c, vi, res, 0);
 
         int ans = 0;
-
-        for(int i = vi.size() - 1; i >= 0; --i)
-            ans += vi[i] * (1 << i);
+        for(int i = res.size() - 1, x = 0; i >= 0; --i, ++x)
+            ans += res[i] * (1 << x);
         return ans;
     }
 
     void get_(node *curr, const int& c, vector <int>& vi, vector<int>& res, int index) {
-
-        curr->in_ += 1;
-        if(curr->in_ == 2) {
-            vi[index - 1] = !vi[index - 1];
-            get_(mp[curr], c, vi, res, index - 1);
-            return;
-        }
-
         if(vi[index]) {
-            if(curr->right_ == NULL) {
-                res[index] = vi[index];
+            if(curr->right_ == NULL) {;
                 return;
             }
             else {
                 if(curr->right_->size_ == (1 << (size_ - index)) - 1) {
-                    if(curr->left_ == NULL) return;
-                    else if(curr->left_->size_ == (1 << (size_ - index)) - 1) {
-                        vi[index - 1] = !vi[index - 1];
-                        get_(curr, c, vi, res, index - 1);
+                    if(curr->left_ == NULL) {
+                        res[index] = 1;
+                        return;
                     }
                     else {
-                        res[index] = !vi[index];
+                        res[index] = 1;
                         get_(curr->left_, c, vi, res, index + 1);
                     }
                 }
                 else get_(curr->right_, c, vi, res, index + 1);
             }
         } else {
-            if(curr->left_ == NULL) {
-                res[index] = vi[index];
-                return;
-            }
+            if(curr->left_ == NULL) return;
             else {
                if(curr->left_->size_ == (1 << (size_ - index)) - 1) {
                     if(curr->right_ == NULL) {
-                        res[index] = !vi[index];
+                        res[index] = 1;
                         return;
                     }
-                    else if(curr->right_->size_ == (1 << (size_ - index)) - 1) {
-                        vi[index - 1] = !vi[index - 1];
-                        get_(curr, c, vi, res, index - 1);
-                    }
                     else {
-                        res[index] = !vi[index];
+                        res[index] = 1;
                         get_(curr->right_, c, vi, res, index + 1);
                     }
                }
@@ -153,12 +134,11 @@ int main() {
         scanf("%d", &x);
         trie_->add(x);
     }
-
     trie_->get_size(trie_->root);
 
     for(int i = 0; i < m; ++i) {
         scanf("%d", &x);
-        c += x;
+        c ^= x;
         printf("%d\n", trie_->get(c));
     }
 }
